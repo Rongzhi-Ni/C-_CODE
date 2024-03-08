@@ -1,0 +1,73 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+ 
+bool GreaterTwo(int x)
+{
+    return x > 2;
+}
+ 
+class GreaterThree
+{
+public:
+    bool operator()(int x)
+    {
+        return x > 3;
+    }
+};
+ 
+int main()
+{
+    int array[6] = {1, 2, 2, 3, 4, 4};
+    vector<int> v(array, array + 6);
+ 
+    vector<int>::iterator it = adjacent_find(v.begin(), v.end());
+    if (it == v.end())
+    {
+        cout << "不存在重复且相邻的" << endl;
+    }
+    else
+    {
+        cout << *it << endl;
+    }
+ 
+    bool ret = binary_search(v.begin(), v.end(), 4);      //在有序的序列里面查找
+    if (ret)
+    {
+        cout << "元素存在" << endl;
+    }
+    else
+    {
+        cout << "元素不存在" << endl;
+    }
+ 
+    int num = count(v.begin(), v.end(), 2);
+    cout << num << endl;
+ 
+    num = count_if(v.begin(), v.end(), GreaterTwo);    //一元谓词   回调函数
+    cout << num << endl;
+ 
+    it = find(v.begin(), v.end(), 3);
+    if (it == v.end())
+    {
+        cout << "元素不存在" << endl;
+    }
+    else
+    {
+        cout << *it << endl;
+    }
+ 
+    it = find_if(v.begin(), v.end(), GreaterThree());      //函数对象
+    if (it == v.end())
+    {
+        cout << "元素不存在" << endl;
+    }
+    else
+    {
+        cout << *it << endl;
+    }
+ 
+    return 0;
+}
