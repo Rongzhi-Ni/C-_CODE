@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+ 
+void show(int x)
+{
+    cout << x << endl;
+}
+ 
+class print
+{
+public:
+    void operator()(int x)
+    {
+        cout << x << endl;
+    }
+};
+ 
+int main()
+{
+    int array[5] = {1, 2, 3, 4, 5};
+    vector<int> v(array, array + 5);
+ 
+    //for_each遍历过程中不能修改数据
+    for_each(v.begin(), v.end(), show);    //回调函数形式遍历
+    for_each(v.begin(), v.end(), print()); //函数对象形式遍历 
+ 
+    //transform遍历过程中可以修改数据
+    string s("helloworld");
+    transform(s.begin(), s.end(), s.begin(), ::toupper);
+    cout << s << endl;
+ 
+    return 0;
+}
