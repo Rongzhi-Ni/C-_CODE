@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+using namespace std;
+ 
+bool Equal(string str)
+{
+    return str == "bb";
+}
+ 
+int main()
+{
+    vector<string> v;
+ 
+    v.push_back("aa");
+    v.push_back("bb");
+    v.push_back("cc");
+    v.push_back("dd");
+ 
+    //vector<string>::iterator it = find_if(v.begin(), v.end(), Equal);
+    vector<string>::iterator it = find_if(v.begin(), v.end(),  bind1st(equal_to<string>(), "bb"));
+    if (it == v.end())
+    {
+        cout << "不存在" << endl;
+    }
+    else
+    {
+        cout << *it << endl;
+    }
+ 
+    return 0;
+}
